@@ -1,0 +1,28 @@
+{
+  "name": "serlerapi",
+  "version": "1.0.0",
+  "description": "Backend for serler app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node buildScripts/srcServer.js",
+    "test": "mocha --reporter progress buildScripts/mochaSetup.js \"src/**/*.spec.js\"",
+    "test:watch": "npm run test -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SERLER-group5/serler.git"
+  },
+  "author": "group5 team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SERLER-group5/serler/issues"
+  },
+  "homepage": "https://github.com/SERLER-group5/serler#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
