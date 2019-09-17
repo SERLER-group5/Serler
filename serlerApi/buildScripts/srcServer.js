@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 
 // routes
-const evidenceRoutes = require('../routes/evidenceRecord');
+const articleRoutes = require('../routes/articles');
 
-app.use("/", evidenceRoutes);
+app.use("/", articleRoutes);
 
 app.listen(8080);
 
