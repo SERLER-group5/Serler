@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
 
-app.get("/", (req, res) => {
-    res.send("dummy response from serler api");
-});
+// routes
+const articleRoutes = require('../routes/articles');
+
+app.use("/", articleRoutes);
 
 app.listen(8080);
+
