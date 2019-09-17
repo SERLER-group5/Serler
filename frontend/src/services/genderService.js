@@ -1,7 +1,7 @@
 import http from "./httpService";
 import {apiUrl} from "../config.json";
 
-const apiEndpoint = apiUrl + "/genders";
+const apiEndpoint = apiUrl + "genders";
 
 // export function register(user){
 //     return http.post(apiEndpoint,{
@@ -13,5 +13,5 @@ const apiEndpoint = apiUrl + "/genders";
 // }
 
 export function  getGenders(){
-    return  http.get(apiUrl);
+    return  http.get(apiEndpoint);
 };

@@ -9,7 +9,8 @@ Fawn.init(mongoose);
 const cors = require("cors");
 const express = require('express');
 const app = express();
-
+const bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 // routes
 const usersRoute = require('../routes/users');
@@ -53,6 +54,9 @@ app.use(cors({
   
     credentials: true,
   }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+//app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));

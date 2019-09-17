@@ -12,9 +12,9 @@ class RegisterForm extends Form {
   };
 
   async componentDidMount() {
-    const {data:genders} = await genderService.getGenders();
+    const {data: genders} = await genderService.getGenders();
     console.log(genders);
-    this.setState(genders);
+    this.setState({genders});
   }
 
   schema = {
