@@ -6,14 +6,18 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const Fawn = require('fawn');
 Fawn.init(mongoose);
+const cors = require("cors");
 const express = require('express');
 const app = express();
+
 
 // routes
 const usersRoute = require('../routes/users');
 const rolesRoute = require('../routes/roles');
 const gendersRoute = require('../routes/genders');
 const authRoute = require('../routes/auth');
+
+
 
 if(!config.get('jwtPrivateKey')) {
     console.error('FATAL ERROR: jwtPrivateKey not defined');
@@ -28,6 +32,27 @@ mongoose.connect(config.get('mongoDbConnection'), { useNewUrlParser: true, useFi
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.error('Could not connect to MongoDB'));
 
+
+var allowedOrigins = ['http://localhost:3000'];
+
+app.use(cors({
+
+    origin: function(origin, callback){
+      // allow requests with no origin
+      // (like mobile apps or curl requests)
+      if(!origin) return callback(null, true);
+      if(allowedOrigins.indexOf(origin) === -1){
+        var msg = 'The CORS policy for this site does not ' +
+                  'allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+  
+    exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
+  
+    credentials: true,
+  }));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));

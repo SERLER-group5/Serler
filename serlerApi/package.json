@@ -25,6 +25,7 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "config": "^3.2.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "fawn": "^2.1.5",
     "helmet": "^3.21.0",
