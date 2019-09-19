@@ -35,7 +35,7 @@ function validateUserEdit(user){
     return Joi.validate(user, schema);
 }
 userSchema.methods.generateToken = function(){
-    const token = jwt.sign({_id: this._id, role: this.role.name}, config.get('jwtPrivateKey'));
+    const token = jwt.sign({_id: this._id, role: this.role.name, name: this.name}, config.get('jwtPrivateKey'));
     return token;
 }
 const User = mongoose.model('User', userSchema);
