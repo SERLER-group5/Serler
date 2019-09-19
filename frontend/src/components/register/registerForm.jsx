@@ -3,6 +3,7 @@ import Joi from "joi-browser";
 import Form from "../common/form";
 import * as userService from '../../services/userService';
 import * as genderService from '../../services/genderService' ;
+import auth from '../../services/authService';
 
 class RegisterForm extends Form {
   state = {
@@ -13,7 +14,6 @@ class RegisterForm extends Form {
 
   async componentDidMount() {
     const {data: genders} = await genderService.getGenders();
-    console.log(genders);
     this.setState({genders});
   }
 
@@ -29,14 +29,26 @@ class RegisterForm extends Form {
     name: Joi.string()
       .required()
       .label("Name"),
-      genderId: Joi.string()
+    genderId: Joi.string()
       .required()
       .label("Gender"),
   };
 
   doSubmit = async () => {
     // Call the server
-    await userService.register(this.state.data);
+    try{
+      const response = await userService.register(this.state.data);
+      auth.loginWithJwt(response.data.headers['x-auth-token']);
+      
+      window.location="/";
+    }
+    catch(ex){
+      if(ex.response && ex.response.status === 400){
+        const errors = {...this.state.errors};
+        errors.email = ex.response.data;
+        this.setState({errors});
+      }
+    }
   };
 
   render() {
