@@ -3,6 +3,6 @@
     "mail":{
         "host":"dev-mail.server"
     },
-    "mongoDbConnection": "mongodb://localhost/serler",
+    "mongoDbConnection": "mongodb+srv://assignment2:group5@cluster0-qa9mw.mongodb.net/Serler?retryWrites=true&w=majority",
     "jwtPrivateKey": "mySuperJWTKey"
 }
