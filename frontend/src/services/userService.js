@@ -5,6 +5,10 @@ import * as roleApi from "./roleService";
 
 const apiEndpoint = apiUrl + "users";
 
+function userUrl(id){
+    return `${apiEndpoint}/${id}`;
+}
+
 export function register(user){
     console.log(user);
     return http.post(apiEndpoint,{
@@ -20,13 +24,24 @@ export function  getUsers(){
 };
 
 export function getUser(id){
-    return http.get(apiEndpoint).get(apiEndpoint + '/' + id);
+    return http.get(userUrl(id));
 }
 
 export function saveUser(user){
-    // let userInDb = users.find(u => u._id === user._id) || {};
-    // userInDb.name = user.name;
-    // userInDb.gender = genderApi.genders.find(g => g._id === user.genderId);
-    // userInDb.role = roleApi.roles.find(r => r._id === user.roleId);
+    if(user._id)
+    {
+        const body = {...user};
+        delete body._id;
+        delete body.email;
+        return http.put(userUrl(user._id), body);
+    }
+    else{
+        return http.post(apiEndpoint, user);
+    }
+
+}
+
+export function deleteUser(id){
+    return http.delete(userUrl(id));
 
 }

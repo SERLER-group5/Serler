@@ -26,26 +26,36 @@ class UserForm extends Form {
     email: Joi.string()
       .required()
       .label("Email"),
-      genderId: Joi.string()
+    genderId: Joi.string()
       .required()
       .label("Gender"),
-      roleId: Joi.string()
+    roleId: Joi.string()
       .required()
       .label("Role")
   };
 
-  async componentDidMount() {
-    const {data: genders} = await getGenders();
-    const {data: roles} = await getRoles();
+  async populateUser() {
+    
+    try {
+      const userId = this.props.match.params.id;
+      if (userId === "new") return;
+      const { data: user } = await getUser(userId);
+      this.setState({ data: this.mapToViewModel(user) });
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404)
+        this.props.history.replace("/not-found");
+    }
+  }
+ 
+  async populateDropdownData() {
+    const { data: genders } = await getGenders();
+    const { data: roles } = await getRoles();
     this.setState({ genders, roles });
+  }
 
-    const userId = this.props.match.params.id;
-    if (userId === "new") return;
-
-    const {data: user} = await getUser(userId);
-    if (!user) return this.props.history.replace("/not-found");
-
-    this.setState({ data: this.mapToViewModel(user) });
+  async componentDidMount() {
+    await this.populateDropdownData();
+    await this.populateUser();
   }
 
   mapToViewModel(user) {
@@ -58,8 +68,8 @@ class UserForm extends Form {
     };
   }
 
-  doSubmit = () => {
-    saveUser(this.state.data);
+  doSubmit = async () => {
+    await saveUser(this.state.data);
 
     this.props.history.push("/admin/users");
   };
@@ -73,7 +83,7 @@ class UserForm extends Form {
           {this.renderInput("email", "Email")}
           {this.renderSelect("roleId", "Role", this.state.roles)}
           {this.renderSelect("genderId", "Gender", this.state.genders)}
-          
+
           {this.renderButton("Save")}
         </form>
       </div>
@@ -82,4 +92,3 @@ class UserForm extends Form {
 }
 
 export default UserForm;
-
