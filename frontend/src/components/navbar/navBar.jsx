@@ -26,17 +26,17 @@ const NavBar = ({ user }) => {
         <NavLink className="nav-link" to="/search">
           Search
         </NavLink>
-        {user && user.role === 'Analyzer' (
+        {user && user.role === 'Analyzer' && (
           <NavLink className="nav-link" to="/analyzer/queue">
           Analyzer Queue
         </NavLink>
         )}
-        {user && user.role === 'Moderator' (
+        {user && user.role === 'Moderator' && (
           <NavLink className="nav-link" to="/moderator/queue">
           Moderator Queue
         </NavLink>
         )}
-        {user && user.role === 'Admin' (
+        {user && user.role === 'Admin' && (
           <React.Fragment>
         <NavLink className="nav-link" to="/admin/users">
           Users
