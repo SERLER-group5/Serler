@@ -10,6 +10,8 @@ import RegisterForm from "./components/register/registerForm";
 import UserDashboard from "./components/user/userDashboard";
 import Logout from "./components/login/logout";
 import auth from "./services/authService";
+import Users from "./components/admin/users/users";
+import UserForm from "./components/admin/users/userForm";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -30,6 +32,8 @@ class App extends Component {
             <Route path="/login" component={LoginForm}></Route>
             <Route path="/logout" component={Logout}></Route>
             <Route path="/register" component={RegisterForm}></Route>
+            <Route path="/Admin/users/:id" component={UserForm}></Route>
+            <Route path="/Admin/Users" component={Users}></Route>
             <Route path="/User" component={UserDashboard}></Route>
             <Route path="/not-found" component={NotFound}></Route>
             <Route path="/" exact component={Home}></Route>

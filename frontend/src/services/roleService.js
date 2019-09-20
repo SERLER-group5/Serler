@@ -3,6 +3,6 @@ import {apiUrl} from "../config.json";
 
 const apiEndpoint = apiUrl + "genders";
 
-export function  getGenders(){
+export function  getRoles(){
     return  http.get(apiEndpoint);
 };
