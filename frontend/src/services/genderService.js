@@ -3,15 +3,32 @@ import {apiUrl} from "../config.json";
 
 const apiEndpoint = apiUrl + "genders";
 
-// export function register(user){
-//     return http.post(apiEndpoint,{
-//         email: user.email,
-//         genderId: user.genderId,
-//         name: user.name,
-//         password: user.password
-//     });
-// }
+function genderUrl(id){
+    return `${apiEndpoint}/${id}`;
+}
 
 export function  getGenders(){
     return  http.get(apiEndpoint);
 };
+
+export function getGender(id){
+    return http.get(genderUrl(id));
+}
+
+export function saveGender(gender){
+    if(gender._id)
+    {
+        const body = {...gender};
+        delete body._id;
+        return http.put(genderUrl(gender._id), body);
+    }
+    else{
+        return http.post(apiEndpoint, gender);
+    }
+
+}
+
+export function deleteGender(id){
+    return http.delete(genderUrl(id));
+
+}
