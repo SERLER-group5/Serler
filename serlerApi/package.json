@@ -20,7 +20,7 @@
   "homepage": "https://github.com/SERLER-group5/serler#readme",
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.2.0"
+    "mocha": "^10.2.0"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
